@@ -12,33 +12,40 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.wearable.*
+import com.google.firebase.database.*
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.*
 
 class MainActivity : ComponentActivity(), MessageClient.OnMessageReceivedListener {
 
     private val expensesState = mutableStateListOf<String>()
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 🔹 Registrar listener antes de enviar o recibir datos
+        // 🔹 Inicializar Firebase
+        database = FirebaseDatabase.getInstance().reference.child("gastos")
+
+        // Registrar listener de Wear
         Wearable.getMessageClient(this).addListener(this)
+
+        // Escuchar cambios en Firebase (solo para inicialización)
+        database.get().addOnSuccessListener { snapshot ->
+            val list = snapshot.children.mapNotNull { it.getValue(String::class.java) }
+            expensesState.clear()
+            expensesState.addAll(list)
+        }
 
         setContent {
             MobileApp(expensesState) { newExpense ->
-                expensesState.add(newExpense)
-                sendExpensesToWear() // Enviamos al Wear
+                addExpense(newExpense)
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        // Listener ya registrado en onCreate, opcional mantenerlo
         Wearable.getMessageClient(this).addListener(this)
     }
 
@@ -52,6 +59,20 @@ class MainActivity : ComponentActivity(), MessageClient.OnMessageReceivedListene
             Log.d("MobileApp", "📩 Wear solicitó la lista de gastos")
             sendExpensesToWear()
         }
+    }
+
+    private fun addExpense(expense: String) {
+        // 🔹 Guardar en Firebase
+        val key = database.push().key
+        if (key != null) {
+            database.child(key).setValue(expense)
+        }
+
+        // 🔹 Actualizar lista local
+        expensesState.add(expense)
+
+        // 🔹 Enviar automáticamente al Wear OS
+        sendExpensesToWear()
     }
 
     private fun sendExpensesToWear() {
@@ -76,10 +97,7 @@ class MainActivity : ComponentActivity(), MessageClient.OnMessageReceivedListene
 }
 
 @Composable
-fun MobileApp(
-    expenses: List<String>,
-    onAddExpense: (String) -> Unit
-) {
+fun MobileApp(expenses: List<String>, onAddExpense: (String) -> Unit) {
     var text by remember { mutableStateOf("") }
 
     MaterialTheme {

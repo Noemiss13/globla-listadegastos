@@ -1,11 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.weaos_registrodegastos_noemi.wear">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Permisos necesarios -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <uses-feature android:name="android.hardware.type.watch" />
+    <!-- Confirmamos que esta app es solo para Wear OS -->
+    <uses-feature android:name="android.hardware.type.watch" android:required="true"/>
 
     <application
         android:allowBackup="true"
@@ -15,19 +18,25 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.DeviceDefault">
 
+        <!-- Indica que es standalone para Wear OS -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
+        <!-- Actividad principal del Wear OS -->
         <activity
             android:name="com.example.wear.presentation.MainActivity"
+            android:excludeFromRecents="true"
             android:exported="true"
+            android:noHistory="true"
             android:theme="@android:style/Theme.DeviceDefault">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Firebase maneja la sincronización; no se requiere servicio de listener -->
 
     </application>
 

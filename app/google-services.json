@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "656738529476",
+    "project_id": "registrodegastos-d74b9",
+    "storage_bucket": "registrodegastos-d74b9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656738529476:android:de08fd30bd50300ae3d991",
+        "android_client_info": {
+          "package_name": "com.example.weaos_registrodegastos_noemi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGpxtbs7tdzOckeh5jdrcqYytZNXMoonA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
