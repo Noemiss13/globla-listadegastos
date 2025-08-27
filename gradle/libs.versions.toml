@@ -19,6 +19,7 @@ firebaseCrashlyticsBuildtools = "3.0.6"
 firebaseDatabaseKtx = "22.0.0"
 coreKtxVersion = "1.13.1"
 firebaseCommon = "20.3.3"
+firebaseDatabase = "20.2.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,6 +47,7 @@ play-services-wearable-v1820 = { module = "com.google.android.gms:play-services-
 firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
 firebase-common = { group = "com.google.firebase", name = "firebase-common", version.ref = "firebaseCommon" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

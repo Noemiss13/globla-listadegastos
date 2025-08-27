@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
-    id("com.google.gms.google-services") // 👈 Firebase
+    id("com.google.gms.google-services") // Firebase
 }
 
 android {
@@ -44,10 +44,10 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.7.0")
     implementation("androidx.compose.material3:material3:1.2.0")
     implementation("androidx.compose.ui:ui-tooling-preview:1.7.0")
-    implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.database)
     debugImplementation("androidx.compose.ui:ui-tooling:1.7.0")
 
-    // --- Gson para guardar gastos ---
+    // --- Gson ---
     implementation("com.google.code.gson:gson:2.10.1")
 
     // --- Wearable Data Layer ---
@@ -58,12 +58,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
-    // --- Firebase ---
+    // --- Firebase BOM y KTX ---
     implementation(platform("com.google.firebase:firebase-bom:32.2.0"))
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
-    // --- Dependencias de test ---
+    // --- Testing ---
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
