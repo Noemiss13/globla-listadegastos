@@ -29,7 +29,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Button(
                         onClick = {
-                            // 🔹 Escribir en Firebase en vez de usar Wearable
                             database.setValue("¡Conexión establecida!")
                                 .addOnSuccessListener { Log.d("MobileApp", "Mensaje enviado a Firebase") }
                                 .addOnFailureListener { e -> Log.e("MobileApp", "Error: ${e.message}") }
