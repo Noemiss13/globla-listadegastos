@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Button(
                         onClick = {
-                            database.setValue("¡Conexión establecida!")
+                            database.setValue("¡Bienvenido Noemi!")
                                 .addOnSuccessListener { Log.d("MobileApp", "Mensaje enviado a Firebase") }
                                 .addOnFailureListener { e -> Log.e("MobileApp", "Error: ${e.message}") }
                         },
